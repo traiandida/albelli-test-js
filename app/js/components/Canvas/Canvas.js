@@ -1,4 +1,5 @@
-import { CANVAS_HEIGHT_PX, CANVAS_WIDTH_PX } from "../../constants"
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../constants"
+import { inchToPixel } from "../../utils/inchToPixel"
 
 class Canvas{
     constructor(HTMLElement){
@@ -6,8 +7,8 @@ class Canvas{
         this.init()
     }
     init(){
-        this.canvas.width = CANVAS_WIDTH_PX
-        this.canvas.height = CANVAS_HEIGHT_PX
+        this.canvas.width = inchToPixel(CANVAS_WIDTH)
+        this.canvas.height = inchToPixel(CANVAS_HEIGHT)
 
         this.ctx = this.canvas.getContext('2d')
 
