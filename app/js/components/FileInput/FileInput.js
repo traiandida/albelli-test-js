@@ -59,8 +59,33 @@ class FileInput{
     }
 
     handleJSONFile(){
-        
-        return;
+        const reader = new FileReader();
+        reader.readAsText(this.file)
+
+        reader.onloadend = () => {
+            let data = JSON.parse(reader.result) 
+            data = data.canvas.photo
+
+            const img = new Image();
+            img.src = data.id
+
+            img.onload = () => {
+                let evt = new CustomEvent(Events.EVENT_CHANGE_FILE,{
+                    detail: {
+                        file : img,
+                        x: data.x,
+                        y: data.y,
+                        width : inchToPixel(data.width),
+                        height: inchToPixel(data.height),
+                        scale: data.scale
+                    },
+                    bubbles: true                            
+                })
+                this.fileInput.dispatchEvent(evt);
+            }
+            
+        }
+     
     }
     
 }

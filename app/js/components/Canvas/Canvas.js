@@ -17,8 +17,8 @@ class Canvas{
     initCanvas(file, x, y, width, height,scale){
 
         this.file = file
-        this.x = 0
-        this.y = 0
+        this.x = x
+        this.y = y
         this.width = width
         this.height = height
         this.scale = scale
@@ -28,6 +28,7 @@ class Canvas{
 
     drawImage(x, y,scale){
 
+        
         if(!this.checkLimits(this.x + x , this.y + y , scale)) return;
         
         this.x += x
@@ -53,7 +54,10 @@ class Canvas{
         let widthDiff = (this.width * scale) - this.canvas.width
 
         let yDiff = (this.height * scale) + y - this.canvas.height 
-        let hightDiff = (this.height * scale) - this.canvas.height
+        let heightDiff = (this.height * scale) - this.canvas.height
+
+        // console.log(xDiff, widthDiff);
+        // console.log(yDiff, heightDiff);
 
         //Check x limits
         if(xDiff > widthDiff){
@@ -62,12 +66,12 @@ class Canvas{
             valid = false
         }
         // Check y limits        
-        if(yDiff > hightDiff){
+        if(yDiff > heightDiff){
             valid = false;
-        }else if (yDiff + hightDiff < hightDiff){
+        }else if (yDiff + heightDiff < heightDiff){
             valid =  false;
         }
-        
+        // console.log(valid);
         return valid;
 
     }
