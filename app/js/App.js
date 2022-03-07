@@ -14,10 +14,9 @@ class App{
         
              
     }
-
     inputFileHandler(ev){
-        const {file, src, width, height} = ev.detail
-        this.canvas.drawImage(file,0,0, width, height);
+        const {file,x,y,width, height} = ev.detail
+        this.canvas.drawImage(file,x,y, width, height);
     }
 }
 

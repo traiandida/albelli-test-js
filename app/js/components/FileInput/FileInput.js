@@ -41,6 +41,8 @@ class FileInput{
                     let evt = new CustomEvent(Events.EVENT_CHANGE_FILE,{
                         detail: {
                             file : img,
+                            x: 0,
+                            y: 0,
                             width : img.naturalWidth,
                             height: img.naturalHeight
                         },
@@ -56,6 +58,7 @@ class FileInput{
     }
 
     handleJSONFile(){
+
         return;
     }
     
