@@ -1,6 +1,6 @@
 import { ALLOWED_FILE_TYPES, CANVAS_HEIGHT, CANVAS_WIDTH, JSON_TYPE } from "../../constants";
 import Events from "../../events";
-import { inchToPixel } from "../../utils/inchToPixel";
+import { inchToPixel } from "../../utils";
 
 class FileInput{
     constructor(HTMLElement){

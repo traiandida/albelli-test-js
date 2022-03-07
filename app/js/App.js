@@ -1,7 +1,7 @@
 import {Canvas, Control, FileInput} from "./components"
 import { JSON_FILE_NAME } from "./constants";
 import Events from "./events";
-import { pixelToInch } from "./utils/pixelToInch";
+import { pixelToInch } from "./utils";
 
 class App{
     constructor(){

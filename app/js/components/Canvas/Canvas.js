@@ -1,5 +1,5 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../constants"
-import { inchToPixel } from "../../utils/inchToPixel"
+import { inchToPixel } from "../../utils"
 
 class Canvas{
     constructor(HTMLElement){
