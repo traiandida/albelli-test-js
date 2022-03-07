@@ -27,17 +27,49 @@ class Canvas{
 
     drawImage(x, y,scale){
 
+        if(!this.checkLimits(this.x + x , this.y + y , scale)) return;
         
-
         this.x += x
         this.y += y
-        this.scale += scale
+
+        if(this.scale !== scale) {
+            this.scale += scale
+        }
 
         this.ctx.clearRect(0,0,this.canvas.width, this.canvas.height);
         this.ctx.drawImage(this.file,this.x,this.y,(this.width * this.scale),(this.height * this.scale) )
     }
 
-   
+    checkLimits(x, y, scale){
+
+        if(this.scale !== scale){
+            scale +=this.scale
+        }
+
+        let valid = true;
+
+        let xDiff = (this.width * scale ) + x - this.canvas.width
+        let widthDiff = (this.width * scale) - this.canvas.width
+
+        let yDiff = (this.height * scale) + y - this.canvas.height 
+        let hightDiff = (this.height * scale) - this.canvas.height
+
+        //Check x limits
+        if(xDiff > widthDiff){
+            valid = false
+        }else if(xDiff + widthDiff < widthDiff){
+            valid = false
+        }
+        // Check y limits        
+        if(yDiff > hightDiff){
+            valid = false;
+        }else if (yDiff + hightDiff < hightDiff){
+            valid =  false;
+        }
+        
+        return valid;
+
+    }
     
     
 }
