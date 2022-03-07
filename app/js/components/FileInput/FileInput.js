@@ -44,12 +44,12 @@ class FileInput{
                             x: 0,
                             y: 0,
                             width : img.naturalWidth,
-                            height: img.naturalHeight
+                            height: img.naturalHeight,
+                            scale: 1
                         },
                         bubbles: true                            
                     })
                     this.fileInput.dispatchEvent(evt);
-                    // console.log("From dispatcher: ",evt);
                 }
             }
             reader.readAsDataURL(this.file);              
@@ -58,7 +58,7 @@ class FileInput{
     }
 
     handleJSONFile(){
-
+        
         return;
     }
     

@@ -1,23 +1,40 @@
-import Canvas from "./components/Canvas";
-import FileInput from "./components/FileInput";
+import {Canvas, Control, FileInput} from "./components"
 import Events from "./events";
 
 class App{
     constructor(){
         this.init();
     }
-    init(){        
-        this.fileInput = new FileInput(document.getElementById("fileSelector"))
-        this.canvas = new Canvas(document.getElementById("editorCanvas"))        
+    init(){    
 
-        document.addEventListener(Events.EVENT_CHANGE_FILE, (ev) => this.inputFileHandler(ev))
+        this.fileInput = new FileInput(document.getElementById("fileSelector"))
+        this.canvas = new Canvas(document.getElementById("editorCanvas"))
+        this.control = new Control();
         
-             
+        //Custom events
+        document.addEventListener(Events.EVENT_CHANGE_FILE, (ev) => this.inputFileHandler(ev))
+
+        // All this events could be grouped in only one event ex. EVENT_IMAGE_CHANGE but I think is more
+        // scalable to separate events triggers.  
+        document.addEventListener(Events.EVENT_MOVE_UP, (ev) => this.imageControlHandler(ev))
+        document.addEventListener(Events.EVENT_MOVE_DOWN, (ev) => this.imageControlHandler(ev))
+        document.addEventListener(Events.EVENT_MOVE_LEFT, (ev) => this.imageControlHandler(ev))
+        document.addEventListener(Events.EVENT_MOVE_RIGHT, (ev) => this.imageControlHandler(ev))
+        document.addEventListener(Events.EVENT_SCALE_UP, (ev)=> this.imageControlHandler(ev))
+        document.addEventListener(Events.EVENT_SCALE_DOWN, (ev)=> this.imageControlHandler(ev))
+                   
     }
     inputFileHandler(ev){
-        const {file,x,y,width, height} = ev.detail
-        this.canvas.drawImage(file,x,y, width, height);
+        const {file,x,y,width, height, scale} = ev.detail
+        this.canvas.initCanvas(file,x,y, width, height,scale);
     }
+
+    imageControlHandler(ev){
+        const {x, y, scale} = ev.detail
+        this.canvas.drawImage(x,y,scale);
+    }
+    
+
 }
 
 export default App
