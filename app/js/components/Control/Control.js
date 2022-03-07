@@ -14,6 +14,8 @@ class Control {
         this.scaleUpBtn = document.getElementById("js-scaleup-btn");
         this.scaleDownBtn = document.getElementById("js-scaledown-btn")
 
+        this.exportJsonBtn = document.getElementById("js-export-json")
+
         this.init()
     }
 
@@ -25,6 +27,8 @@ class Control {
 
         this.scaleUpBtn.addEventListener("click", (ev) => this.scaleUp() )
         this.scaleDownBtn.addEventListener("click", (ev) => this.scaleDown() )
+
+        this.exportJsonBtn.addEventListener("click", (ev) => this.exportToJSON())
         
     }
     moveUp(){
@@ -85,6 +89,13 @@ class Control {
                 scale:-SCALE_PERCENTAGE
             },
             bubbles: true
+        }))
+    }
+
+    exportToJSON(){
+        
+        this.exportJsonBtn.dispatchEvent(new CustomEvent(Events.EVENT_EXPORT_JSON,{
+            bubbles:true
         }))
     }
 }

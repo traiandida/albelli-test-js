@@ -6,5 +6,6 @@ class Events{
     static EVENT_MOVE_RIGHT = 'event-move-right'
     static EVENT_SCALE_UP = 'event-scale-up'
     static EVENT_SCALE_DOWN = 'event-scale-down'
+    static EVENT_EXPORT_JSON = 'event-export-json'
 }
 export default Events

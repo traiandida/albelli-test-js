@@ -1,5 +1,6 @@
-import { ALLOWED_FILE_TYPES, CANVAS_HEIGHT_PX, CANVAS_WIDTH_PX, JSON_TYPE } from "../../constants";
+import { ALLOWED_FILE_TYPES, CANVAS_HEIGHT, CANVAS_WIDTH, JSON_TYPE } from "../../constants";
 import Events from "../../events";
+import { inchToPixel } from "../../utils/inchToPixel";
 
 class FileInput{
     constructor(HTMLElement){
@@ -33,8 +34,8 @@ class FileInput{
                 img.src = reader.result;
                 img.onload = () => {
 
-                    if (img.naturalWidth < CANVAS_WIDTH_PX || img.naturalHeight < img.naturalHeight){
-                        alert(`Image to small, image file should be grater than: ${CANVAS_WIDTH_PX}x${CANVAS_HEIGHT_PX}` )
+                    if (img.naturalWidth < inchToPixel(CANVAS_WIDTH) || img.naturalHeight < inchToPixel(CANVAS_HEIGHT)){
+                        alert(`Image to small, image file should be grater than: ${CANVAS_WIDTH}"x${CANVAS_HEIGHT}"` )
                         return;
                     }
 
