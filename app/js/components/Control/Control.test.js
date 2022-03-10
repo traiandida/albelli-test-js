@@ -1,9 +1,9 @@
-import Control from './Control'
+import Control from './Control';
 
 describe('Control', () => {
-    let control;
-    beforeEach(() => {
-        document.body.innerHTML = `<fieldset style="text-align: center;">
+  let control;
+  beforeEach(() => {
+    document.body.innerHTML = `<fieldset style="text-align: center;">
         <br>
         <div>
             <button id="js-moveup-btn" >Move Up</button>
@@ -18,17 +18,17 @@ describe('Control', () => {
             <button id="js-export-json">Export to JSON</button>
         </div>   
     </fieldset>  
-    `
-    control = new Control()
-    })
+    `;
+    control = new Control();
+  });
 
-    test("Buttons render", () => {
-        expect(control.moveUpBtn).toBeDefined();
-        expect(control.moveDownBtn).toBeDefined();
-        expect(control.moveLeftBtn).toBeDefined();
-        expect(control.moveRightBtn).toBeDefined();
-        expect(control.scaleUpBtn).toBeDefined();
-        expect(control.scaleDownBtn).toBeDefined();
-        expect(control.exportJsonBtn).toBeDefined();
-    })
-})
+  test('Buttons render', () => {
+    expect(control.moveUpBtn).toBeDefined();
+    expect(control.moveDownBtn).toBeDefined();
+    expect(control.moveLeftBtn).toBeDefined();
+    expect(control.moveRightBtn).toBeDefined();
+    expect(control.scaleUpBtn).toBeDefined();
+    expect(control.scaleDownBtn).toBeDefined();
+    expect(control.exportJsonBtn).toBeDefined();
+  });
+});

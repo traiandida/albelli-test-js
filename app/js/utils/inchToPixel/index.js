@@ -1,5 +1,4 @@
-import { PIXLES_PER_INCH } from "../../constants"
+import { PIXLES_PER_INCH } from '../../constants';
 
-export const inchToPixel = (inch) => {
-    return parseFloat(inch * PIXLES_PER_INCH)
-}
+// eslint-disable-next-line import/prefer-default-export
+export const inchToPixel = (inch) => parseFloat(inch * PIXLES_PER_INCH);

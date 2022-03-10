@@ -1,93 +1,88 @@
-import { ALLOWED_FILE_TYPES, CANVAS_HEIGHT, CANVAS_WIDTH, JSON_TYPE } from "../../constants";
-import Events from "../../events";
-import { inchToPixel } from "../../utils";
+import {
+  ALLOWED_FILE_TYPES, CANVAS_HEIGHT, CANVAS_WIDTH, JSON_TYPE,
+} from '../../constants';
+import Events from '../../events';
+import { inchToPixel } from '../../utils';
 
-class FileInput{
-    constructor(HTMLElement){
-        this.fileInput = HTMLElement;
-        this.init();  
+class FileInput {
+  constructor(HTMLElement) {
+    this.fileInput = HTMLElement;
+    this.init();
+  }
+
+  init() {
+    this.fileInput.addEventListener('change', (ev) => this.changeFile(ev));
+  }
+
+  changeFile(ev) {
+    this.file = ev.target.files[0];
+    if (ALLOWED_FILE_TYPES.includes(this.file.type)) {
+      if (this.file.type === JSON_TYPE) {
+        this.handleJSONFile();
+      } else {
+        this.handleImageFile();
+      }
+    } else {
+      alert('File type not allowed, only image or json types allowed.');
     }
-    init(){
-        this.fileInput.addEventListener("change", (ev) => this.changeFile(ev))
-    }
+  }
 
-
-    changeFile(ev){
-        
-        this.file = ev.target.files[0]
-        if(ALLOWED_FILE_TYPES.includes(this.file.type)){
-        
-            if(this.file.type === JSON_TYPE){
-                this.handleJSONFile();
-            }else{
-                this.handleImageFile();
-            }
-        }else{            
-            alert("File type not allowed, only image or json types allowed.")            
+  handleImageFile() {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const img = new Image();
+      img.src = reader.result;
+      img.onload = () => {
+        if (img.naturalWidth < inchToPixel(CANVAS_WIDTH)
+        || img.naturalHeight < inchToPixel(CANVAS_HEIGHT)) {
+          alert(`Image to small, image file should be grater than: ${CANVAS_WIDTH}"x${CANVAS_HEIGHT}"`);
+          return;
         }
-    }
 
-    handleImageFile(){
-        const reader = new FileReader();
-            reader.onloadend = () =>{
-                const img = new Image();
-                img.src = reader.result;
-                img.onload = () => {
+        const evt = new CustomEvent(Events.EVENT_CHANGE_FILE, {
+          detail: {
+            file: img,
+            x: 0,
+            y: 0,
+            width: img.naturalWidth,
+            height: img.naturalHeight,
+            scale: 1,
+          },
+          bubbles: true,
+        });
+        this.fileInput.dispatchEvent(evt);
+      };
+    };
+    reader.readAsDataURL(this.file);
+  }
 
-                    if (img.naturalWidth < inchToPixel(CANVAS_WIDTH) || img.naturalHeight < inchToPixel(CANVAS_HEIGHT)){
-                        alert(`Image to small, image file should be grater than: ${CANVAS_WIDTH}"x${CANVAS_HEIGHT}"` )
-                        return;
-                    }
+  handleJSONFile() {
+    const reader = new FileReader();
+    reader.readAsText(this.file);
 
-                    let evt = new CustomEvent(Events.EVENT_CHANGE_FILE,{
-                        detail: {
-                            file : img,
-                            x: 0,
-                            y: 0,
-                            width : img.naturalWidth,
-                            height: img.naturalHeight,
-                            scale: 1
-                        },
-                        bubbles: true                            
-                    })
-                    this.fileInput.dispatchEvent(evt);
-                }
-            }
-            reader.readAsDataURL(this.file);              
+    reader.onloadend = () => {
+      let data = JSON.parse(reader.result);
+      data = data.canvas.photo;
 
-            return;
-    }
+      const img = new Image();
+      img.src = data.id;
 
-    handleJSONFile(){
-        const reader = new FileReader();
-        reader.readAsText(this.file)
-
-        reader.onloadend = () => {
-            let data = JSON.parse(reader.result) 
-            data = data.canvas.photo
-
-            const img = new Image();
-            img.src = data.id
-
-            img.onload = () => {
-                let evt = new CustomEvent(Events.EVENT_CHANGE_FILE,{
-                    detail: {
-                        file : img,
-                        x: data.x,
-                        y: data.y,
-                        width : inchToPixel(data.width),
-                        height: inchToPixel(data.height),
-                        scale: data.scale
-                    },
-                    bubbles: true                            
-                })
-                this.fileInput.dispatchEvent(evt);
-            }
-            
-        }
-     
-    }
-    
+      img.onload = () => {
+        const evt = new CustomEvent(Events.EVENT_CHANGE_FILE, {
+          detail: {
+            file: img,
+            x: data.x,
+            y: data.y,
+            width: inchToPixel(data.width),
+            height: inchToPixel(data.height),
+            scale: data.scale,
+          },
+          bubbles: true,
+        });
+        this.fileInput.dispatchEvent(evt);
+      };
+    };
+  }
 }
 
-export default FileInput
+export default FileInput;
