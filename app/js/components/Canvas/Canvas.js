@@ -71,7 +71,7 @@ class Canvas{
         }else if (yDiff + heightDiff < heightDiff){
             valid =  false;
         }
-        // console.log(valid);
+
         return valid;
 
     }
