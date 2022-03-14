@@ -20,11 +20,13 @@ class Canvas {
     this.width = width;
     this.height = height;
     this.scale = scale;
-    this.drawImage(this.x, this.y, this.scale);
+    this.drawImage(this.x, this.y, this.scale, true);
   }
 
-  drawImage(x, y, scale) {
-    if (!this.checkLimits(this.x + x, this.y + y, scale)) return;
+  drawImage(x, y, scale, first = false) {
+    if (!first) {
+      if (!this.checkLimits(this.x + x, this.y + y, scale)) return;
+    }
 
     this.x += x;
     this.y += y;

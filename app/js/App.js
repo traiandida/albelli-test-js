@@ -1,7 +1,6 @@
 import { Canvas, Control, FileInput } from './components';
 import { JSON_FILE_NAME } from './constants';
 import Events from './events';
-import { pixelToInch } from './utils';
 
 class App {
   constructor() {
@@ -43,12 +42,12 @@ class App {
   exportToJson() {
     const data = {
       canvas: {
-        width: pixelToInch(this.canvas.canvas.width),
-        height: pixelToInch(this.canvas.canvas.height),
+        width: this.canvas.canvas.width,
+        height: this.canvas.canvas.height,
         photo: {
           id: this.canvas.file.src,
-          width: pixelToInch(this.canvas.width),
-          height: pixelToInch(this.canvas.height),
+          width: this.canvas.width,
+          height: this.canvas.height,
           x: this.canvas.x,
           y: this.canvas.y,
           scale: this.canvas.scale,
