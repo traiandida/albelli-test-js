@@ -1,4 +1,4 @@
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../../constants';
+import { CANVAS_HEIGHT, CANVAS_WIDTH, MAX_SCALE_ALLOWED } from '../../constants';
 import { inchToPixel } from '../../utils';
 
 class Canvas {
@@ -52,6 +52,8 @@ class Canvas {
       auxScale += this.scale;
     }
 
+    auxScale = parseFloat(auxScale.toFixed(2));
+
     let valid = true;
 
     const xDiff = (this.width * auxScale) + x - this.canvas.width;
@@ -59,6 +61,11 @@ class Canvas {
 
     const yDiff = (this.height * auxScale) + y - this.canvas.height;
     const heightDiff = (this.height * auxScale) - this.canvas.height;
+
+    // Checks for the maximum scale zoom
+    if (auxScale > MAX_SCALE_ALLOWED) {
+      valid = false;
+    }
 
     // Check x limits
     if (xDiff > widthDiff) {

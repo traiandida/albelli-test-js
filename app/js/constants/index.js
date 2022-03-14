@@ -7,6 +7,7 @@ export const PIXLES_PER_INCH = 96;
 
 export const MOVEMENT_PX = 10;
 export const SCALE_PERCENTAGE = 0.05;
+export const MAX_SCALE_ALLOWED = 2;
 
 // JSON TYPE
 export const JSON_TYPE = 'application/json';
